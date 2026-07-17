@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Viraj Vaidya — Pharmaceutical Sciences · Business · Strategy</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg: #060B12;
+    --panel: #0D1826;
+    --panel-alt: #122236;
+    --text: #F2F1EA;
+    --muted: #93A5B7;
+    --muted-dim: #59697C;
+    --accent: #DCB16E;
+    --accent-soft: rgba(220,177,110,0.14);
+    --accent-2: #5D93C7;
+    --accent-2-soft: rgba(93,147,199,0.14);
+    --border: rgba(242,241,234,0.07);
+    --border-strong: rgba(242,241,234,0.14);
+    --maxw: 880px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: linear-gradient(165deg, #04070C 0%, #060C15 35%, #0A1826 75%, #0C1E30 100%);
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* faint apothecary grid texture behind everything */
+  body::before{
+    content:"";
+    position: fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.22;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* soft ambient glow, gold + rose, drifting behind the hero */
+  body::after{
+    content:"";
+    position: fixed;
+    top: -280px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 700px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(220,177,110,0.14), transparent 60%),
+      radial-gradient(circle at 70% 55%, rgba(93,147,199,0.14), transparent 55%);
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    background: rgba(5,10,17,0.82);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-mark{
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    color: var(--accent);
+  }
+  .nav-links{
+    display:flex;
+    gap: 26px;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .nav-links a{
+    position: relative;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.25s;
+    padding-bottom: 3px;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; right:100%;
+    bottom:0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition: right 0.3s ease;
+  }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-links a:hover::after{ right: 0; }
+  .nav-toggle{ display:none; }
+
+  @media (max-width: 720px){
+    .nav-links{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  header.hero{
+    padding: 52px 0 64px;
+    position: relative;
+  }
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;}
+  h1.name{
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 5.4vw, 3.9rem);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+    background: linear-gradient(100deg, var(--text) 35%, var(--accent) 75%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .headline-line{
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--accent);
+    max-width: 52ch;
+    margin: 0 0 16px;
+  }
+  .role-line{
+    font-size: 1.08rem;
+    color: var(--muted);
+    max-width: 52ch;
+    margin: 0 0 30px;
+    font-weight: 400;
+  }
+  .role-line strong{ color: var(--text); font-weight: 600; }
+
+  .contact-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .contact-row a{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-size: 13px;
+    text-decoration:none;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border-strong);
+    padding: 10px 16px;
+    border-radius: 999px;
+    transition: border-color 0.25s, color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .contact-row a:hover{
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -10px rgba(220,177,110,0.4);
+  }
+
+  
+  .photo-frame img{
+    width:100%; height:100%; object-fit: cover; display:block;
+  }
+  .photo-frame .placeholder{
+    width:100%; height:100%;
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-dim);
+    text-align:center;
+    padding: 12px;
+    line-height: 1.5;
+    background: var(--panel);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  @media (max-width: 640px){
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;}
+    
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding: 60px 0;
+    border-top: 1px solid var(--border);
+  }
+  .eyebrow{
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0 0 8px;
+  }
+  h2.section-title{
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .lede{
+    color: var(--muted);
+    max-width: 62ch;
+    margin: -18px 0 32px;
+  }
+
+  /* ---------- timeline ---------- */
+  .timeline{
+    position: relative;
+    padding-left: 26px;
+    border-left: 1px solid var(--border-strong);
+  }
+  .t-entry{
+    position: relative;
+    padding-bottom: 34px;
+  }
+  .t-entry:last-child{ padding-bottom: 0; }
+  .t-entry::before{
+    content:"";
+    position:absolute;
+    left: -30.5px;
+    top: 5px;
+    width: 9px; height:9px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 0 4px var(--bg), 0 0 10px rgba(220,177,110,0.5);
+  }
+  .t-date{
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+  .t-title{
+    font-weight: 600;
+    font-size: 1.02rem;
+    margin: 0 0 2px;
+  }
+  .t-org{
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0 0 10px;
+  }
+  .t-desc{
+    color: var(--muted);
+    font-size: 0.94rem;
+    max-width: 62ch;
+    margin:0;
+  }
+
+  /* ---------- cards / grid ---------- */
+  .grid-2{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 640px){ .grid-2{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .card:hover{
+    border-color: var(--accent-soft);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px -18px rgba(0,0,0,0.55);
+  }
+  .card h3{
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.02rem;
+    margin: 0 0 4px;
+    font-weight: 600;
+  }
+  .card .meta{
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    display:block;
+  }
+  .card p{
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  /* label / tag chips for cert exposure areas */
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top: 10px;
+  }
+  .tag{
+    font-family:'Space Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+    color: var(--accent-2);
+    border: 1px solid var(--accent-2-soft);
+    background: var(--accent-2-soft);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  /* ---------- leadership list ---------- */
+  .role-block{
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    display:grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+  }
+  .role-block:last-child{ border-bottom:none; }
+  .role-org{
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .role-org span{
+    display:block;
+    font-family:'Space Mono', monospace;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--muted-dim);
+    margin-top: 4px;
+  }
+  .role-list{
+    margin:0; padding:0; list-style:none;
+  }
+  .role-list li{
+    margin-bottom: 12px;
+    font-size: 0.92rem;
+  }
+  .role-list li:last-child{ margin-bottom:0; }
+  .role-list .r-title{
+    font-weight: 500;
+    color: var(--text);
+  }
+  .role-list .r-date{
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    margin-left: 8px;
+  }
+  .role-list p{
+    color: var(--muted);
+    margin: 4px 0 0;
+    font-size: 0.88rem;
+  }
+  @media (max-width: 640px){
+    .role-block{ grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ---------- achievements ---------- */
+  .achv-list{
+    display:flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .achv-item{
+    display:flex;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .achv-item:last-child{ border:none; }
+  .achv-icon{
+    color: var(--accent);
+    font-family:'Manrope', sans-serif;
+    font-size: 1.1rem;
+    flex-shrink:0;
+    width: 22px;
+  }
+  .achv-item h3{
+    font-size: 0.95rem;
+    margin: 0 0 2px;
+  }
+  .achv-item p{
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin: 0;
+  }
+
+  /* ---------- interests ---------- */
+  .interest-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .interest-pill{
+    border: 1px solid var(--border-strong);
+    background: var(--panel);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .interest-pill:hover{
+    border-color: var(--accent-2);
+    transform: translateY(-2px);
+  }
+  .interest-pill::before{
+    content:"";
+    width:6px;height:6px;
+    border-radius:50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding: 60px 0 50px;
+    border-top: 1px solid var(--border);
+    text-align:center;
+  }
+  footer .foot-name{
+    font-family:'Manrope', sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  footer .foot-links{
+    display:flex;
+    justify-content:center;
+    gap: 18px;
+    margin: 18px 0 26px;
+    flex-wrap: wrap;
+  }
+  footer .foot-links a{
+    text-decoration:none;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  footer .foot-links a:hover{ color: var(--accent); border-color: var(--accent); }
+  footer .fine{
+    font-family:'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-dim);
+  }
+
+  /* reveal on scroll */
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior: auto; }
+  }
+
+  ::selection{ background: var(--accent-soft); color: var(--accent); }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+/* Premium enhancements */
+body{scroll-behavior:smooth}
+section{scroll-margin-top:90px}
+.card,.cert-card,.timeline-item,.project-card{
+border:1px solid rgba(255,255,255,.08)!important;
+border-radius:18px!important;
+transition:transform .25s ease, box-shadow .25s ease;
+backdrop-filter:blur(8px);
+}
+.card:hover,.cert-card:hover,.timeline-item:hover,.project-card:hover{
+transform:translateY(-6px);
+box-shadow:0 14px 35px rgba(0,0,0,.18);
+}
+ul{padding-left:20px}
+li{margin:6px 0}
+.hero h1{
+background:linear-gradient(90deg,#f8d34b,#ffd95f,#fff3b0);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.cert-card ul{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+list-style:none;
+padding:0;
+margin-top:12px;
+}
+.cert-card li{
+background:#1f2937;
+padding:6px 12px;
+border-radius:999px;
+font-size:.82rem;
+}
+
+
+/* Header cleanup */
+nav{
+display:flex;
+align-items:center;
+justify-content:flex-end;
+}
+nav .nav-links, nav ul{
+margin-left:auto!important;
+}
+
+/* Hero name styling */
+.hero h1{
+color:#ffffff!important;
+background:none!important;
+-webkit-text-fill-color:#ffffff!important;
+text-shadow:
+0 1px 0 #f5f5f5,
+0 2px 1px rgba(255,255,255,.18),
+0 0 10px rgba(255,255,255,.08),
+0 8px 18px rgba(0,0,0,.28);
+letter-spacing:.4px;
+}
+
+/* Refined hero heading */
+.hero h1{
+    color:#fff !important;
+    background:none !important;
+    -webkit-text-fill-color:#fff !important;
+    text-shadow:none !important;
+    font-size:clamp(2.2rem,5vw,3.6rem) !important;
+    font-weight:700 !important;
+    letter-spacing:0.2px !important;
+}
+strong,b{font-weight:600;}
+.cert-card p{
+    line-height:1.65;
+    margin-bottom:12px;
+}
+</style>
+</head>
+<body>
+<nav>
+<div class="wrap">
+<span class="nav-mark"></span>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#education">Education</a></li>
+<li><a href="#certifications">Certifications</a></li>
+<li><a href="#project">Project</a></li>
+<li><a href="#leadership">Leadership</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</div>
+</nav>
+<header class="hero">
+<div class="wrap hero-grid">
+<div>
+<h1 class="name">Viraj Vaidya</h1>
+<p class="headline-line">Intern at Rahi Platform Technologies | Bachelor of Pharmaceutical Sciences Graduate | Ex-President &amp; Academic Secretary, MCOPS (2025–26) | Exploring Healthcare, Business, Technology &amp; AI</p>
+<p class="role-line">
+        Pharmaceutical sciences graduate working at the intersection of <strong>science, business, and marketing</strong> —
+        seeking roles in regulatory affairs, market research, and product management across the healthcare sector.
+      </p>
+<div class="contact-row">
+<a href="mailto:virajvaidya0504@gmail.com">✉ virajvaidya0504@gmail.com</a>
+<a href="tel:+919588447337">☎ +91 95884 47337</a>
+<a href="https://www.linkedin.com/in/viraj-vaidya0504" rel="noopener" target="_blank">in LinkedIn</a>
+</div>
+</div>
+</div>
+</header>
+<main>
+<section id="about">
+<div class="wrap reveal">
+<p class="eyebrow">About</p>
+<h2 class="section-title">Profile</h2>
+<p class="lede" style="margin-top:0;">
+        Having completed my graduation in Pharmaceutical Sciences from Manipal College of Pharmaceutical Sciences,
+        I bring a strong foundation at the intersection of science, business, and marketing. I seek exposure in
+        pharmaceutical regulatory affairs, market research, and product management, with a keen interest in
+        understanding business growth levers within the healthcare sector. I aspire to shape impactful brand and
+        product strategies that strengthen brand equity and deliver lasting value across industries. Alongside this,
+        I've been getting hands-on with AI-assisted development, exploring tools like Claude Code and VS Code and
+        picking up "vibe coding" as a way of building faster and thinking more like a builder.
+      </p>
+</div>
+</section>
+<section id="experience">
+<div class="wrap reveal">
+<p class="eyebrow">Experience</p>
+<h2 class="section-title">Internship</h2>
+<div class="timeline">
+<div class="t-entry">
+<div class="t-date">Jun 2025 — Jul 2025</div>
+<p class="t-title">Pharmaceutical &amp; Healthcare Intern</p>
+<p class="t-org">Sanofi Healthcare India Pvt. Ltd.</p>
+<p class="t-desc">
+            Gained hands-on experience across Manufacturing, Packaging, Quality Control, and Quality Assurance
+            departments. Acquired practical insight into end-to-end pharmaceutical processes, GMP compliance, and
+            quality systems, developing a strong understanding of industrial workflows and regulatory standards in a
+            global pharma setting.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<section id="education">
+<div class="wrap reveal">
+<p class="eyebrow">Education</p>
+<h2 class="section-title">Academics</h2>
+<div class="timeline">
+<div class="t-entry">
+<div class="t-date">2022 — 2026</div>
+<p class="t-title">Bachelor of Pharmaceutical Sciences</p>
+<p class="t-org">Manipal College of Pharmaceutical Sciences, Karnataka</p>
+<p class="t-desc">CGPA: 8.63 / 10.00 (up to Semester 7)</p>
+</div>
+<div class="t-entry">
+<div class="t-date">Apr 2021 — May 2022</div>
+<p class="t-title">All India Senior Secondary Certificate Examination, Grade 12 (S.S.C.E)</p>
+<p class="t-org">M.P. Junior College, Pune</p>
+<p class="t-desc">Grade: 74.8% — Core subjects: Physics, Chemistry, Mathematics, Biology</p>
+</div>
+<div class="t-entry">
+<div class="t-date">Apr 2019 — May 2020</div>
+<p class="t-title">All India Higher Secondary Certificate Examination, Grade 10 (C.B.S.E)</p>
+<p class="t-org">Millennium National School, Pune</p>
+<p class="t-desc">Grade: 94.8%</p>
+</div>
+</div>
+</div>
+</section>
+<section id="certifications">
+<div class="wrap reveal">
+<p class="eyebrow">Certifications</p>
+<h2 class="section-title">Certifications &amp; Specializations</h2>
+<div class="grid-2" style="margin-bottom:18px;">
+<div class="card">
+<h3>Healthcare Specialization</h3>
+<p>Exposure gained across Clinical Research, Analytics, Healthcare Management, Pharmacoeconomics, and
+             Organizational Psychology &amp; Economics.</p>
+<div class="tag-row">
+<span class="tag">Clinical Research</span>
+<span class="tag">Pharmacoeconomics</span>
+<span class="tag">Org. Psychology</span>
+</div>
+</div>
+<div class="card">
+<h3>Marketing, Finance &amp; Technology</h3>
+<p>Exposure gained across Business Analysis, Generative AI, E-commerce, Business Development, Digital
+             Marketing &amp; SEO, and Financial Reporting &amp; Analysis. Technical proficiency in HubSpot CRM, Google
+             Analytics, and Google Ads.</p>
+<div class="tag-row">
+<span class="tag">HubSpot CRM</span>
+<span class="tag">Google Analytics</span>
+<span class="tag">Google Ads</span>
+</div>
+</div>
+</div>
+<div class="grid-2">
+<div class="card">
+<span class="meta">JUL 2024</span>
+<h3>The Business of Health Care</h3>
+<p>University of Pennsylvania</p>
+</div>
+<div class="card">
+<span class="meta">JUN 2024</span>
+<h3>The Economics of Health Care Delivery</h3>
+<p>University of Pennsylvania</p>
+</div>
+<div class="card">
+<span class="meta">JUN 2024</span>
+<h3>Drug Development Product Management</h3>
+<p>Skaggs School of Pharmacy, UC San Diego</p>
+</div>
+<div class="card">
+<span class="meta">DEC 2025</span>
+<h3>Corporate Finance and Financial Accounting</h3>
+<p>Coursera</p>
+</div>
+<div class="card">
+<span class="meta">JUL 2025</span>
+<h3>Business Strategy: Value Proposition Essentials</h3>
+<p>Coursera</p>
+</div>
+<div class="card">
+<span class="meta">JUL 2025</span>
+<h3>Fundamentals of Finance</h3>
+<p>University of Pennsylvania</p>
+</div>
+<div class="card">
+<span class="meta">AUG 2024</span>
+<h3>Attract and Engage Customers with Digital Marketing</h3>
+<p>Google</p>
+</div>
+<div class="card">
+<span class="meta">MAR 2024</span>
+<h3>Generative AI</h3>
+<p>LinkedIn Learning</p>
+</div>
+<div class="card">
+<span class="meta">JAN 2024</span>
+<h3>Foundations of Digital Marketing and E-commerce</h3>
+<p>Google</p>
+</div>
+</div>
+</div>
+</section>
+<section id="project">
+<div class="wrap reveal">
+<p class="eyebrow">Project Work</p>
+<h2 class="section-title">Research</h2>
+<div class="card" style="padding:26px 28px;">
+<h3 style="font-size:1.05rem; margin-bottom:10px;">
+          Regulatory Classification, Pre-Market Requirements, and Market Performance of Cardiovascular Medical
+          Devices: A Comparative Study
+        </h3>
+<p style="font-size:0.94rem;">
+          Examined the risk-based classification of cardiovascular devices across the US FDA, EU MDR, and India's
+          CDSCO, with a specific focus on the 2026 transition to the Quality Management System Regulation (QMSR) and
+          its alignment with ISO 13485:2016. Evaluated mandatory digital submission requirements through the eSTAR
+          portal and compared the technical documentation necessary for the 510(k), PMA, and De Novo regulatory
+          pathways.
+        </p>
+</div>
+</div>
+</section>
+<section id="leadership">
+<div class="wrap reveal">
+<p class="eyebrow">Leadership</p>
+<h2 class="section-title">Extracurriculars</h2>
+<div class="role-block">
+<div class="role-org">MAPS<span>Manipal College of Pharmaceutical Sciences</span></div>
+<ul class="role-list">
+<li><span class="r-title">President</span><span class="r-date">Aug 2025 — Jun 2026</span></li>
+</ul>
+</div>
+<div class="role-block">
+<div class="role-org">The Academic Committee<span>MAPS, Manipal College of Pharmaceutical Sciences</span></div>
+<ul class="role-list">
+<li><span class="r-title">Secretary</span><span class="r-date">Aug 2025 — Jun 2026</span></li>
+<li><span class="r-title">Joint Academic Secretary</span><span class="r-date">Aug 2024 — Aug 2025</span></li>
+<li><span class="r-title">Student's Representative</span><span class="r-date">Aug 2022 — Jul 2024</span></li>
+</ul>
+</div>
+<div class="role-block">
+<div class="role-org">HULT Prize<span>MAHE</span></div>
+<ul class="role-list">
+<li>
+<span class="r-title">Head of Public Relations and Outreach</span><span class="r-date">Aug 2024 — Aug 2025</span>
+<p>Managed strategic PR initiatives, media relations, and crisis communication. Oversaw outreach programs,
+               brand messaging, and stakeholder relationships, while monitoring public sentiment and campaign
+               effectiveness, and leading internal communications.</p>
+</li>
+</ul>
+</div>
+<div class="role-block">
+<div class="role-org">Rotaract Club of MAHE<span>Professional Services</span></div>
+<ul class="role-list">
+<li>
+<span class="r-title">Professional Services Director</span><span class="r-date">Aug 2024 — Jun 2025</span>
+<p>Developed strategies and stakeholder engagement, advocated for the organization's mission, and
+               optimized resources for effective service delivery, team management, and compliance.</p>
+</li>
+<li><span class="r-title">Volunteer</span><span class="r-date">Oct 2023 — Aug 2024</span></li>
+</ul>
+</div>
+<p class="eyebrow" style="margin-top:48px;">Conferences &amp; Colloquiums</p>
+<div class="timeline" style="margin-top:20px;">
+<div class="t-entry">
+<div class="t-date">2026</div>
+<p class="t-title">Pharma Anveshan 2026 (Karnataka)</p>
+<p class="t-desc">Represented MCOPS as a Student Representative at this national-level platform uniting
+             academia, industry professionals, and students, with participation exceeding 1,100 students nationwide.</p>
+</div>
+<div class="t-entry">
+<div class="t-date">2022 — 2026</div>
+<p class="t-title">MCOPS Pharma Quora</p>
+<p class="t-desc">2025–26: Core organizing member leading the Finance, Marketing, and Outreach departments,
+             driving successful participation of 500+ students. 2022–24: Active organizing team member and poster
+             presentation participant.</p>
+</div>
+<div class="t-entry">
+<div class="t-date">2024</div>
+<p class="t-title">International Conference on cGMP — ICONcGMP</p>
+<p class="t-desc">Participated for deep insight into current industry practices and valuable networking.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="achievements">
+<div class="wrap reveal">
+<p class="eyebrow">Recognition</p>
+<h2 class="section-title">Merits &amp; Achievements</h2>
+<div class="achv-list">
+<div class="achv-item">
+<span class="achv-icon">✦</span>
+<div>
+<h3>Distinction Award — 2023, 2024, 2025, 2026</h3>
+<p>Manipal College of Pharmaceutical Sciences, MAHE · February 2023 – 2026</p>
+</div>
+</div>
+<div class="achv-item">
+<span class="achv-icon">✦</span>
+<div>
+<h3>First Position, "Model Your Microbe 2024"</h3>
+<p>Department of Basic Medical Sciences, MAHE · October 2024</p>
+</div>
+</div>
+<div class="achv-item">
+<span class="achv-icon">✦</span>
+<div>
+<h3>Best Outgoing Student</h3>
+<p>Millennium National School, Pune · March 2020</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="interests">
+<div class="wrap reveal">
+<p class="eyebrow">Beyond Work</p>
+<h2 class="section-title">Personal Interests</h2>
+<div class="interest-row">
+<span class="interest-pill">Hyper-realistic graphite &amp; charcoal portraits (5+ yrs)</span>
+<span class="interest-pill">Reading — self-improvement, philosophy, autobiographies</span>
+<span class="interest-pill">Singing &amp; guitar</span>
+<span class="interest-pill">Fitness &amp; active sport</span>
+</div>
+</div>
+</section>
+</main>
+<footer id="contact">
+<div class="wrap">
+<p class="foot-name">Let's connect</p>
+
+<div class="foot-links">
+<a href="mailto:virajvaidya0504@gmail.com">virajvaidya0504@gmail.com</a>
+<a href="tel:+919588447337">+91 95884 47337</a>
+<a href="https://www.linkedin.com/in/viraj-vaidya0504" rel="noopener" target="_blank">LinkedIn</a>
+</div>
+<p class="fine">© 2026 Viraj Vaidya</p>
+</div>
+</footer>
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
